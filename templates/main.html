@@ -1,14 +1,12 @@
 {% extends "bootstrap/base.html" %}
-{% block title %}Whiteboard{% endblock %}
+{% block title %}{{page_title}}{% endblock %}
 
 {% block navbar %}
-<div class="navbar navbar-fixed-top">
-   <!-- ... -->
-</div>
+{{nav.mynavbar.render()}}
 {% endblock %}
 
 {% block content %}
-<div>
+<div class="jumbotron">
    <!-- ... -->
    Hello world
 </div>
