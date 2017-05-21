@@ -1,0 +1,44 @@
+{% extends "bootstrap/base.html" %}
+{% include "style.html" %}
+{% include "navbar.html" %}
+{% block title %}{{page_title}}{% endblock %}
+
+
+{% block content %}
+<div class="container">
+   <div class="jumbotron">
+      <div>
+         <p>
+         Select the session you want to join in from this list:
+         </p>
+           
+         <table>
+            <tr>
+               <th>Session Id</th>
+               <th>Description</th>
+               <th>Active Users</th>
+               <th>Last update</th>
+            <tr>
+               <td>cafecafe</td>
+               <td>Just a silly session</td>
+               <td>1</td>
+               <td>2 min ago</td>
+            </tr>
+            <tr>
+               <td>dada1sm0</td>
+               <td>Another random session</td>
+               <td>0</td>
+               <td>1 day ago</td>
+            </tr>
+            <tr>
+               <td>babecafe</td>
+               <td>digital picasson on the works</td>
+               <td>1</td>
+               <td>now</td>
+            </tr>
+         </table>
+      </div>
+   </div>
+</div>
+{% endblock %}
+
