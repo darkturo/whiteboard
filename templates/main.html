@@ -1,13 +1,51 @@
 {% extends "bootstrap/base.html" %}
+
+{% block styles %} 
+{{super()}}
+<link href="http://getbootstrap.com/examples/jumbotron-narrow/jumbotron-narrow.css" rel="sylesheet">
+{% endblock %}
 {% block title %}{{page_title}}{% endblock %}
 
 {% block navbar %}
-{{nav.mynavbar.render()}}
+<div class="header clearfix">
+   {{nav.mynavbar.render()}}
+</div>
 {% endblock %}
 
 {% block content %}
-<div class="jumbotron">
-   <!-- ... -->
-   Hello world
+<div class="container">
+   <div class="jumbotron">
+      <center>
+         <h1>Welcome Stranger!</h1>
+      </center>
+      <div align="justify">
+         <p>
+         You may be wondering that this page is for? ... well let me help you
+         there...
+         </p>
+
+         <p>
+         Here you can sketch up your ideas while sharing in realtime your
+         drawings... 
+         Jupp, this is a collaborative whiteboard, a simple online tool which
+         allows  for good brainstorming sessions where remote teams can share
+         their ideas while drawing with their mouse while interacting in
+         realtime with each other.
+         </p>
+
+         <p>
+         Check it out by starting a new session or joining to an existing
+         session.
+         </p>
+      </div>
+
+      <center>
+      <div class="btn-group" role="group" aria-label="...">
+         <a class="btn btn-lg btn-success" href="/whiteboard" role="button">New Session</a>
+         <a class="btn btn-lg btn-success" href="/showsessions" role="button">Join Session</a>
+      </div>
+      </center>
+   </div>
 </div>
 {% endblock %}
+
