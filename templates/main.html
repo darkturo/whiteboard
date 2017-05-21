@@ -1,16 +1,8 @@
 {% extends "bootstrap/base.html" %}
-
-{% block styles %} 
-{{super()}}
-<link href="http://getbootstrap.com/examples/jumbotron-narrow/jumbotron-narrow.css" rel="sylesheet">
-{% endblock %}
+{% include "style.html" %}
+{% include "navbar.html" %}
 {% block title %}{{page_title}}{% endblock %}
 
-{% block navbar %}
-<div class="header clearfix">
-   {{nav.mynavbar.render()}}
-</div>
-{% endblock %}
 
 {% block content %}
 <div class="container">
