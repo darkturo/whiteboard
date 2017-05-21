@@ -4,6 +4,8 @@ from flask_bootstrap import Bootstrap
 from whiteboard import app
 
 import whiteboard.navbar
+import whiteboard.session
+
 
 Bootstrap(app)
 
@@ -17,8 +19,8 @@ def view():
 
 @app.route('/whiteboard', methods=['GET'])
 def get_new_session():
-    session_id = "babecafe" # <-- TODO: GENERATE THIS
-    return redirect("/whiteboard/{session_id}".format(session_id=session_id))
+    url = "/whiteboard/{session_id}".format(session_id=whiteboard.session.gen_session())
+    return redirect(url)
 
 
 @app.route('/whiteboard/<session_id>', methods=['GET'])
