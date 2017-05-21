@@ -33,7 +33,7 @@ def showsessions():
 
 @app.route('/about', methods=['GET'])
 def about():
-    return "Not implemented", 200
+    return render_template('about.html')
 
 
 whiteboard.navbar.register(app, WebAppName, 
