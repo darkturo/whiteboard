@@ -68,6 +68,7 @@ var __slice = Array.prototype.slice;
       this.tool = this.options.defaultTool;
       this.actions = [];
       this.action = [];
+      this.undone_actions = []; 
       this.canvas.bind('click mousedown mouseup mousemove mouseleave mouseout touchstart touchmove touchend touchcancel', this.onEvent);
       if (this.options.toolLinks) {
         $('body').delegate("a[href=\"#" + (this.canvas.attr('id')) + "\"]", 'click', function(e) {
@@ -84,6 +85,9 @@ var __slice = Array.prototype.slice;
           }
           if ($(this).attr('data-undo')) {
             sketch.undo();
+          }
+          if ($(this).attr('data-redo')) {
+            sketch.redo();
           }
           if ($(this).attr('data-download')) {
             sketch.download($(this).attr('data-download'));
@@ -102,7 +106,17 @@ var __slice = Array.prototype.slice;
       return window.open(this.el.toDataURL(mime));
     };
     Sketch.prototype.undo = function() {
-      this.actions.pop();
+      if (this.actions.length > 0) { 
+         last_action = this.actions.pop();
+         this.undone_actions.push(last_action);
+      }
+      return this.redraw();
+    };
+    Sketch.prototype.redo = function() {
+      if (this.undone_actions.length > 0) { 
+         previous_action = this.undone_actions.pop();
+         this.actions.push(previous_action)
+      }
       return this.redraw();
     };
     Sketch.prototype.set = function(key, value) {
@@ -124,6 +138,7 @@ var __slice = Array.prototype.slice;
       }
       this.painting = false;
       this.action = null;
+      this.undone_actions = [];
       return this.redraw();
     };
     Sketch.prototype.onEvent = function(e) {
