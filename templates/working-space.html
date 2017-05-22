@@ -5,7 +5,7 @@
    <script type="text/javascript" src="{{url_for('static', filename='js/sketch.js')}}"></script>
    <script type="text/javascript">
       $(function() {
-         $('#colors_sketch').sketch();
+         $('#whiteboard').sketch();
       });
    </script>
 {% endblock scripts %}
@@ -22,11 +22,11 @@
 				<span class="caret"></span>
 			</button>
 			<ul id="menu" class="dropdown-menu">
-				<li><a href="#colors_sketch" onclick="$('#menu').toggle()" data-size="3">3 pt</a></li>
-				<li><a href="#colors_sketch" onclick="$('#menu').toggle()" data-size="5">5 pt</a></li>
-				<li><a href="#colors_sketch" onclick="$('#menu').toggle()" data-size="10">10 pt</a></li>
-				<li><a href="#colors_sketch" onclick="$('#menu').toggle()" data-size="15">15 pt</a></li>
-				<li><a href="#colors_sketch" onclick="$('#menu').toggle()" data-size="20">20 pt</a></li>
+				<li><a href="#whiteboard" onclick="$('#menu').toggle()" data-size="3">3 pt</a></li>
+				<li><a href="#whiteboard" onclick="$('#menu').toggle()" data-size="5">5 pt</a></li>
+				<li><a href="#whiteboard" onclick="$('#menu').toggle()" data-size="10">10 pt</a></li>
+				<li><a href="#whiteboard" onclick="$('#menu').toggle()" data-size="15">15 pt</a></li>
+				<li><a href="#whiteboard" onclick="$('#menu').toggle()" data-size="20">20 pt</a></li>
 			</ul>
       </div>
       <a id="undo" class="btn btn-default" type="button" alt="Undo">
@@ -35,11 +35,11 @@
       <a id="redo" class="btn btn-default" type="button" alt="Redo">
          <span class="glyphicon glyphicon-repeat"></span>
       </a>
-      <a id="download" class="btn btn-default" type="button" href="#colors_sketch" data-download="png" alt="Download Image">
+      <a id="download" class="btn btn-default" type="button" href="#whiteboard" data-download="png" alt="Download Image">
          <span class="glyphicon glyphicon-download"></span>
       </a>
    </div>
-   <canvas id="colors_sketch" width="800" height="600" style="border:1px solid #000000;">
+   <canvas id="whiteboard" width="800" height="600" style="border:1px solid #000000;">
    </canvas>
 </div>
 
