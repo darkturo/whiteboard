@@ -82,6 +82,9 @@ var __slice = Array.prototype.slice;
               sketch.set(key, $(this).attr("data-" + key));
             }
           }
+          if ($(this).attr('data-undo')) {
+            sketch.undo();
+          }
           if ($(this).attr('data-download')) {
             sketch.download($(this).attr('data-download'));
           }
@@ -97,6 +100,10 @@ var __slice = Array.prototype.slice;
       }
       mime = "image/" + format;
       return window.open(this.el.toDataURL(mime));
+    };
+    Sketch.prototype.undo = function() {
+      this.actions.pop();
+      return this.redraw();
     };
     Sketch.prototype.set = function(key, value) {
       this[key] = value;
