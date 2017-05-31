@@ -111,7 +111,31 @@ var __slice = Array.prototype.slice;
          last_action = this.actions.pop();
          this.undone_actions.push(last_action);
       }
-      return this.redraw();
+      return this.update_and_redraw();
+    };
+    Sketch.prototype.redo = function() {
+      if (this.undone_actions.length > 0) { 
+         previous_action = this.undone_actions.pop();
+         this.actions.push(previous_action)
+      }
+      return this.update_and_redraw();
+    };
+    Sketch.prototype.retrieve_actions_from_server = function() {
+      function is_valid(msg) {
+         data = JSON.parse(msg); 
+         return ('actions' in data) && ('undone_actions' in data);
+      };
+      $.ajax({
+        method: "GET",
+        url: "/api/v.0.1/retrieve/".concat(this.session_id),
+        data: {}
+      }).done(function( response ) {
+         if ( is_valid(response) ) {
+            this.actions = response.actions;
+            this.undone_actions = response.undone_actions;
+         }
+         // else, keep the cache.
+      });
     };
     Sketch.prototype.update = function() {
       $.ajax({
@@ -122,12 +146,9 @@ var __slice = Array.prototype.slice;
       }).done(function( msg ) {
           ;; // Ingnore response
       });
-    }
-    Sketch.prototype.redo = function() {
-      if (this.undone_actions.length > 0) { 
-         previous_action = this.undone_actions.pop();
-         this.actions.push(previous_action)
-      }
+    };
+    Sketch.prototype.update_and_redraw = function() {
+      this.update();
       return this.redraw();
     };
     Sketch.prototype.set = function(key, value) {
@@ -144,14 +165,14 @@ var __slice = Array.prototype.slice;
       };
     };
     Sketch.prototype.stopPainting = function() {
+      this.retrieve_actions_from_server(); 
       if (this.action) {
         this.actions.push(this.action);
       }
       this.painting = false;
       this.action = null;
       this.undone_actions = [];
-      this.update() 
-      return this.redraw();
+      return this.update_and_redraw();
     };
     Sketch.prototype.onEvent = function(e) {
       if (e.originalEvent && e.originalEvent.targetTouches) {
@@ -201,7 +222,7 @@ var __slice = Array.prototype.slice;
           y: e.pageY - this.canvas.offset().top,
           event: e.type
         });
-        return this.redraw();
+        return this.update_and_redraw();
       }
     },
     draw: function(action) {

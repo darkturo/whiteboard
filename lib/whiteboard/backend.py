@@ -17,6 +17,13 @@ def update(session_id):
 
     return json.dumps({'status': 'ok'}), 200
 
+@app.route('/api/v.0.1/retrieve/<session_id>', methods=['GET'])
+def retrieve(session_id):
+    data = {}
+    if session_id in session['memorycache']:
+        data = json.dump(session['memorycache'])
+    return json.dumps(data), 200
+
 ###
 def extract_json(data):
     content = None
