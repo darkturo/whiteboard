@@ -5,7 +5,7 @@
    <script type="text/javascript" src="{{url_for('static', filename='js/sketch.js')}}"></script>
    <script type="text/javascript">
       $(function() {
-         $('#whiteboard').sketch();
+         $('#whiteboard').sketch("{{session_id}}");
       });
    </script>
 {% endblock scripts %}

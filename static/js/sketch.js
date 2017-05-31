@@ -25,7 +25,7 @@
 var __slice = Array.prototype.slice;
 (function($) {
   var Sketch;
-  $.fn.sketch = function() {
+  $.fn.sketch = function(session_id) {
     var args, key, sketch;
     key = arguments[0], args = 2 <= arguments.length ? __slice.call(arguments, 1) : [];
     if (this.length > 1) {
@@ -47,12 +47,12 @@ var __slice = Array.prototype.slice;
     } else if (sketch) {
       return sketch;
     } else {
-      this.data('sketch', new Sketch(this.get(0), key));
+      this.data('sketch', new Sketch(this.get(0), key, session_id));
       return this;
     }
   };
   Sketch = (function() {
-    function Sketch(el, opts) {
+    function Sketch(el, opts, session_id) {
       this.el = el;
       this.canvas = $(el);
       this.context = el.getContext('2d');
@@ -66,9 +66,10 @@ var __slice = Array.prototype.slice;
       this.color = this.options.defaultColor;
       this.size = this.options.defaultSize;
       this.tool = this.options.defaultTool;
-      this.actions = [];
       this.action = [];
+      this.actions = [];
       this.undone_actions = []; 
+      this.session_id = session_id;
       this.canvas.bind('click mousedown mouseup mousemove mouseleave mouseout touchstart touchmove touchend touchcancel', this.onEvent);
       if (this.options.toolLinks) {
         $('body').delegate("a[href=\"#" + (this.canvas.attr('id')) + "\"]", 'click', function(e) {
@@ -112,6 +113,16 @@ var __slice = Array.prototype.slice;
       }
       return this.redraw();
     };
+    Sketch.prototype.update = function() {
+      $.ajax({
+        method: "POST",
+        url: "/api/v.0.1/update/".concat(this.session_id),
+        data: { actions: this.actions,
+                undone_actions: this.undone_actions}
+      }).done(function( msg ) {
+          ;; // Ingnore response
+      });
+    }
     Sketch.prototype.redo = function() {
       if (this.undone_actions.length > 0) { 
          previous_action = this.undone_actions.pop();
@@ -139,6 +150,7 @@ var __slice = Array.prototype.slice;
       this.painting = false;
       this.action = null;
       this.undone_actions = [];
+      this.update() 
       return this.redraw();
     };
     Sketch.prototype.onEvent = function(e) {

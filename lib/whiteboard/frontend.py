@@ -25,7 +25,7 @@ def get_new_session():
 
 @app.route('/whiteboard/<session_id>', methods=['GET'])
 def working_space(session_id):
-    return render_template('working-space.html')
+    return render_template('working-space.html', session_id=session_id)
 
 
 @app.route('/showsessions', methods=['GET'])
