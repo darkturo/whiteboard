@@ -3,4 +3,4 @@ import whiteboard.frontend
 import whiteboard.backend
 
 if __name__ == '__main__':
-    whiteboard.app.run(port=8080)
+    whiteboard.app.run(host='0.0.0.0', port=8080)
